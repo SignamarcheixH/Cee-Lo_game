@@ -4,6 +4,7 @@ import os
 
 
 def initNamesList():
+    """fonction qui initialise le nom des x joueurs de la partie"""
     with open("dicoNames.txt",'r') as fichier:
         contenu = fichier.readlines()
     nameList = []
@@ -23,6 +24,7 @@ def initNamesList():
     setData(data)
 
 def initCashTab():
+    """fonction qui initialise le cashtab"""
     cashTab ={}
     names = getNameList()
     initialCash = getInitialCash()
@@ -31,6 +33,7 @@ def initCashTab():
     setCashTab(cashTab)
 
 def initMiseTab():
+    """fonction qui initialise le cashtab"""
     miseTab ={}
     names = getNameList()
     for name in names:
@@ -39,12 +42,14 @@ def initMiseTab():
 
 
 def getNameList():
+    """fonction qui recupère la liste des joueurs de la partie"""
     with open("data",'rb') as fichier:
         unpickler = pickle.Unpickler(fichier)
         data = unpickler.load()
     return(data["namesList"])
 
 def getNameListTmp():
+    """fonction qui recupère la liste des joueurs encore vivants de la partie"""
     with open("data",'rb') as fichier:
         unpickler = pickle.Unpickler(fichier)
         data = unpickler.load()
@@ -52,6 +57,7 @@ def getNameListTmp():
 
 
 def getDealer():
+    """fonction qui recupère le nom du delaer actuel de la partie"""
     with open('data', 'rb') as fichier:
         unpickler = pickle.Unpickler(fichier)
         data = unpickler.load()
@@ -62,36 +68,42 @@ def getDealer():
     return(dealerName)
 
 def getPlayerName():
+    """fonction qui recupère le nom du joueur"""
     with open("data",'rb') as fichier:
         unpickler = pickle.Unpickler(fichier)
         data = unpickler.load()
     return(data["playerName"])
 
 def getNbPlayers():
+    """fonction qui recupère le nombre de joueurs de la partie"""
     with open("data",'rb') as fichier:
         unpickler = pickle.Unpickler(fichier)
         data = unpickler.load()
     return(data["nbPlayers"])
 
 def getInitialCash():
+    """fonction qui recupère le montant initial de la cagnotte initiale de chaque joueur"""
     with open("data",'rb') as fichier:
         unpickler = pickle.Unpickler(fichier)
         data = unpickler.load()
     return(data["initialCash"])
 
 def getNbTurns():
+    """fonction qui determine le nombre de tours de la partie"""
     with open("data",'rb') as fichier:
         unpickler = pickle.Unpickler(fichier)
         data = unpickler.load()
     return(data["nbTurns"])
 
 def getCashTab():
+    """fonction qui recupere le cashtab actuel de la partie"""
     with open("cashplayers",'rb') as fichier:
         unpickler = pickle.Unpickler(fichier)
         data = unpickler.load()
     return(data)
 
 def getCashList():
+    """fonction qui retourne le cashtab a afficher avec la legende cash"""
     cashTab = getCashTab()
     cashList = []
     for name in cashTab:
@@ -100,12 +112,14 @@ def getCashList():
     return cashList
 
 def getMiseTab():
+    """fonction qui recupere le misetab actuel de la partie"""
     with open("miseplayers",'rb') as fichier:
         unpickler = pickle.Unpickler(fichier)
         data = unpickler.load()
     return(data)
 
 def getMiseList():
+    """fonction qui retourne le misetab a afficher avec la legende mise"""
     miseTab = getMiseTab()
     miseList = []
     for name in miseTab:
@@ -114,27 +128,32 @@ def getMiseList():
     return miseList
 
 def setCashTab(cashTab):
+    """fonction qui actualise le cashtab"""
     with open('cashplayers','wb') as fichier:
         pickler = pickle.Pickler(fichier)
         pickler.dump(cashTab)
 
 def setMiseTab(miseTab):
+    """fonction qui actualise le misetab"""
     with open('miseplayers','wb') as fichier:
         pickler = pickle.Pickler(fichier)
         pickler.dump(miseTab)
 
 def getData():
+    """fonction qui recupere le JSON data"""
     with open('data','rb') as fichier:
         unpickler = pickle.Unpickler(fichier)
         data = unpickler.load()
     return(data)
 
 def setData(data):
+    """fonction qui actualise le JSON data"""
     with open('data','wb') as fichier:
         pickler = pickle.Pickler(fichier)
         pickler.dump(data)
 
 def biggestInList(list):
+    """fonction qui retourne la longueur du plus long mot trouvé dans list"""
     elemMaxLength = 0
     for elem in list:
         if(len(str(elem)) > elemMaxLength):
@@ -142,6 +161,7 @@ def biggestInList(list):
     return(elemMaxLength)
 
 def itemCompletion(item, itemMaxLength):
+    """fonction qui complete item par des espaces pour fitter avec itemMaxLength"""
     itemFormated = str(item)
     missingSpaces = itemMaxLength - len(itemFormated)
     for i in range(missingSpaces):
@@ -149,12 +169,14 @@ def itemCompletion(item, itemMaxLength):
     return(itemFormated)
 
 def drawHeaderBorder(headerLength):
+    """fonction qui dessine la bordure du header de la partie"""
     headerLine = ""
     for i in range(headerLength):
         headerLine+="#"
     return(headerLine)
 
 def isDealer(name):
+    """fonction qui determine si le joueur name est actuelement dealer"""
     dealerName = getDealer()
     if(name == dealerName):
         return("DEALER")
@@ -162,6 +184,7 @@ def isDealer(name):
         return("      ")
 
 def setHeader():
+    """fonction qui affiche le header de la partie"""
     os.system("clear")
     nameList = getNameListTmp()
     nameList.append("Names")
@@ -185,6 +208,7 @@ def setHeader():
     print(centerText(drawHeaderBorder(headerLength)))
 
 def centerText(message):
+    """fonction qui centre le message au centre du terminal"""
     rows,columns = os.popen("stty size",'r').read().split()
     textWidth = len(message)
     textCenter = ""
@@ -197,6 +221,7 @@ def centerText(message):
     return(textCenter)
 
 def secureInputInt(message):
+    """fonction qui assure que l'utilisateur rentre bien un Int"""
     result = 0
     resultOk = False
     while(not(resultOk)) :

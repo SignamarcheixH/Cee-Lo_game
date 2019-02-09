@@ -117,6 +117,7 @@ def dealer_turn():
 
 
 def allTurns(dealerScore):
+    """fonction qui gère l'affrontement de tous les jouers face au dealer, prend en argument le score du dealer"""
     nameList = utilFunctions.getNameListTmp()
     dealerName = utilFunctions.getDealer()
     for name in nameList:
@@ -185,6 +186,7 @@ def joueurVsDealer(name,dealerScore):
 
 
 def fullTurn():
+    """fonction qui simule un tour de jeu complet, de la mise à l'elimination des perdants"""
     utilFunctions.setHeader()
     utilFunctions.initMiseTab()
     miseAll()
@@ -195,10 +197,11 @@ def fullTurn():
 
 
 def losersElim():
+    """fonction qui gère l'elimination des perdants en fonction de l'argent qui leur reste"""
     cashTab = utilFunctions.getCashTab()
     miseTab = utilFunctions.getMiseTab()
     listeLosers = []
-    for name in cashTab:
+    for name in cashTab:     #recherche des eventuels perdants
         if(cashTab[name] <= 0):
             print(utilFunctions.centerText("{} n'a plus d'argent, il est eliminé".format(name)))
             listeLosers.append(name)
@@ -206,14 +209,14 @@ def losersElim():
     dealerId = data["dealerId"]
     nameList =data["namesListTmp"]
     dealerId = (dealerId+1)%(len(nameList))
-    while(nameList[dealerId] in listeLosers):
+    while(nameList[dealerId] in listeLosers):     #recherche du nouveau dealer
         dealerId = (dealerId+1)%(len(nameList))
     data['dealerId'] = dealerId
     dealerName = nameList[dealerId]
     data['dealerName'] = dealerName
-    for loser in listeLosers:
+    for loser in listeLosers:       #elimination de tous les perdants
         nameList.remove(loser)
-        data['namesListTmp'] = nameList
+        data['namesListTmp'] = nameList   #actualisation de la liste des joueurs actuels
         for i in range (len(nameList)):
             if(nameList[i] == dealerName):
                 data["dealerId"] = i
@@ -224,9 +227,8 @@ def losersElim():
     utilFunctions.setCashTab(cashTab)
     utilFunctions.setMiseTab(miseTab)
 
-
-
 def runNbTurnsGame():
+    """fonction qui simule une partie en nb tours"""
     utilFunctions.initCashTab()
     utilFunctions.initMiseTab()
     nbTurns =utilFunctions.getNbTurns()
@@ -238,17 +240,18 @@ def runNbTurnsGame():
     utilFunctions.setData(data)
     for i in range(nbTurns):
         fullTurn()
-    cashTab = utilFunctions.getCashTab()
+    cashTab = utilFunctions.getCashTab()  #on recupère le cashtab après les nb tours
     nameWinner = ""
     cashWinner = 0
     for name in cashTab:
             if(cashTab[name] > cashWinner):
                 cashWinner = cashTab[name]
-                nameWinner = name
+                nameWinner = name               #le gagnant est le plus riche
     print(utilFunctions.centerText("Le gagnant est {}, il a remporté {}€ !".format(nameWinner,cashWinner)))
     input()
 
 def runDeathGame():
+    """fonction qui simule une partie de type match à mort"""
     utilFunctions.initCashTab()
     utilFunctions.initMiseTab()
     cashTab = utilFunctions.getCashTab()
@@ -258,7 +261,7 @@ def runDeathGame():
     data['dealerId'] = random.randint(0,data['nbPlayers']-1)
     data['dealerName'] = data['namesList'][data['dealerId']]
     utilFunctions.setData(data)
-    while(len(cashTab) != 1):
+    while(len(cashTab) != 1):        #tant qu'il y a plus d'un joueur dans le cashtab
         fullTurn()
         cashTab =utilFunctions.getCashTab()
     for winner in cashTab:
@@ -286,6 +289,7 @@ def miseAdversary(name):
 
 
 def miseAll():
+    """fonction qui gère la mise de tous les joueurs"""
     cashTab = utilFunctions.getCashTab()
     playerName = utilFunctions.getPlayerName()
     dealerName = utilFunctions.getDealer()
@@ -312,7 +316,6 @@ def miseAll():
 
 def misePlayer():
     """fonction qui gère la mise du joueur"""
-
     playerName = utilFunctions.getPlayerName()
     cashTab = utilFunctions.getCashTab()
     miseTab = utilFunctions.getMiseTab()

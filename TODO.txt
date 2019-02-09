@@ -2,6 +2,7 @@
 17/12/18        ajouter la page de règles du cee-lo
 17/12/18        verifier les calculs du dealer en cas de gain
 17/12/18        securiser la saisie de donnees joueur str
-17/12/18        documenter le code
+17/12/18        documenter le code  DONE(08/02/19)
 17/12/18        limiter le nombre de joueurs possible
 17/12/18        implementer les tests unitaires
+08/02/19       cleaner et optimiser le code

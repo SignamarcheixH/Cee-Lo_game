@@ -16,6 +16,7 @@ data = { "playerName" : "VOUS",
 
 
 def optionMenu():
+    """fonction qui gère le menu d'options"""
     stay = True
     while(stay):
         os.system("clear")
@@ -47,6 +48,7 @@ def optionMenu():
 
 
 def mainMenu():
+    """fonction qui gère le main Menu"""
     play = True
     while(play):
         os.system("clear")
@@ -71,6 +73,8 @@ def mainMenu():
             print(1)
         if (response == 5):
             play = False
+
+
 
 utilFunctions.setData(data)
 mainMenu()
