@@ -1,4 +1,4 @@
 # Cee-Lo_game
-Une simulation d'un jeu de Cee-Lo ( version terminal ) 
+A simulation of the classic Cee-Lo dice game ( terminal only )
 
-Projet realisé en 2017 (L3)
+Project made in 2017
