@@ -21,7 +21,7 @@ The rules of Cee-Lo are explained here : https://en.wikipedia.org/wiki/Cee-lo
 
 ## Options
 
-![alt text](./ressourcesreadme_options_page.png)
+![alt text](./ressources/readme_options_page.png)
 
 `Set yout player name`: You can write your name who will be displayed in your next games.
 
